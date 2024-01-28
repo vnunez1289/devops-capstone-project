@@ -168,3 +168,9 @@ class TestAccountService(TestCase):
         """It should not update a nonexistant Account"""
         resp = self.client.put(f"{BASE_URL}/0", json={})
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_delete_account(self):
+        """It should Delete an existing Account"""
+        account = self._create_accounts(1)[0]
+        resp = self.client.delete(f"{BASE_URL}/{account.id}")
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
